@@ -1,0 +1,41 @@
+*{
+    font-family:"Poppins";
+}
+h2{
+    font-size: 15px;
+    color: rgb(185, 12, 242);
+}
+.time{
+    border: 1px solid;
+    flex: 1;
+    text-align: end;
+}
+#highScore{
+    border: 1px solid;
+    flex: 1;
+}
+.container{
+    display: flex;
+    
+}
+.centerMain{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 60px;
+    border: 1px solid;
+    flex:2;
+}
+
+.btn{
+    border:none;
+    padding: 12px 15px;
+    background-color: rgb(31, 0, 89);
+    color: white;
+    
+}
+.btn:hover{
+    transition-duration: 0.4s;
+    background-color: rgb(185, 12, 242);
+}
