@@ -1,3 +1,7 @@
+
+playerList = [];
+var updateValue;
+var score = 0;
 var body = document.querySelector("body");
 /*div container holding everything*/
 var container = document.querySelector("#contain");
@@ -15,6 +19,7 @@ var begin = document.querySelector("#begin-quiz");
 var highS = document.querySelector("#highScore");
 
 var timeKeeper = document.querySelector("#timer");
+
 var final = document.createElement("div");
 
 var questionholder = document.createElement("div");
@@ -29,13 +34,31 @@ var list = [];
 /*order of questions*/
 var order = 0;
 var time = 180;
+stopTime = false;
 wrong = false;
+function clear(){
+    console.log("clear");
+}
+
+function startOver(){
+    order = 0;
+    time = 180;
+    /*location.reload();*/
+    centerContainer.setAttribute("class", "centerMain");
+    question.innerHTML = "Coding Quiz Challenge"
+    centerContainer.append(direct);
+    centerContainer.append(begin);
+    timer();
+    console.log("reloaded");
+}
 function timer(){
     timeKeeper.innerHTML = "Time:" + " " + time --;
     if(time<0){
        clearInterval(myVar);
    }
-   else{/*console.log(time);*/}
+   else if(stopTime){
+    clearInterval(myVar);
+   }
    }
 
 function beginTimer(){
@@ -56,6 +79,7 @@ function wrongPick(){
     wrongDiv.appendChild(wrongIndicator);
     wrongIndicator.innerHTML = "Wrong!"
 }
+score -= 5;
 }
 function rightPick(){
     console.log("right pick");
@@ -69,7 +93,7 @@ function rightPick(){
     questionThree.removeAttribute("id");
     questionFour.removeAttribute("id");
     questionFive.removeAttribute("id");
-    
+    score += 10;
     questioner();
 }
 
@@ -166,7 +190,7 @@ function questioner(){
         var wrongAnswereB = document.querySelector("#wrongPickB");
         wrongAnswereB.addEventListener("click", wrongPick);
 
-        questionFour.innerHTML="4. sqaure brackets";
+        questionFour.innerHTML="4. square brackets";
         questionFour.setAttribute("id", "wrongPickC");
         var wrongAnswereC = document.querySelector("#wrongPickC");
         wrongAnswereC.addEventListener("click", wrongPick);
@@ -300,17 +324,81 @@ function questioner(){
         questionThree.removeEventListener("click", wrongPick);
         questionFour.removeEventListener("click", rightPick);
         /****************/
-        order = 0;
+        /*order = 0;*/
         console.log("go to highscore");
         question.innerHTML = "All done!"
         centerContainer.removeChild(questionholder);
         var finalP = document.createElement("p");
         centerContainer.append(final);
-        finalP.innerHTML = "your final score is."
+        finalP.innerHTML = "your final score is " + score + ".";
         question.append(finalP);
+        var inputDiv = document.createElement("form");
+        inputDiv.setAttribute("class", "inputDiv");
+        inputDiv.setAttribute("label", "name");
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("class", "input");
+        input.setAttribute("id", "yourName")
+        input.setAttribute("name", "initial");
+        input.setAttribute("label", "initialSubmit");
+        var btn = document.createElement("button");
+        var inputP = document.createElement("p");
+        inputP.innerHTML = "Enter initials:";
+        inputDiv.append(inputP)
+        inputDiv.append(input);
+        inputDiv.append(btn);
+        question.append(inputDiv);
+        btn.innerHTML = "submit";
+        btn.setAttribute("class", "btnSub");
+        btn.setAttribute("type", "submit");
+        btn.setAttribute("name", "initial");
+        btn.setAttribute("label", "initialSubmit");
+        stopTime = true;
+        timer();
         
+        inputDiv.addEventListener('submit', function (e){
+            e.preventDefault();
+            var tempValue = document.getElementById("yourName").value;
+            console.log(tempValue.length);
+            if(tempValue.length != 2){
+                window.alert("must be two characters");
+            }
+            else{
+            updateValue = tempValue
+            console.log(updateValue);
+            console.log(updateValue.length);
+            playerList.push(updateValue + " " + "-" + " " + score);
+            console.log(playerList);
+            localStorage.setItem("scoreVal", playerList);
+            questioner();}
+        });
+        
+
         
     }
+    else if(order ===7){
+        question.innerHTML = "High scores";
+        var yourName = document.createElement("h4");
+        yourName.setAttribute("class", "nameScore");
+        yourName.innerHTML = localStorage.getItem("scoreVal");
+        /*yourName.innerHTML = (updateValue + " " + "-" + " " + score);*/
+        question.append(yourName);
+        var goBack = document.createElement("button");
+        var clearHighScore = document.createElement("button");
+        var options = document.createElement("div");
+        goBack.addEventListener("click",startOver);
+        clearHighScore.addEventListener("click",clear);
+        goBack.setAttribute("class","btnOpt");
+        goBack.innerHTML = "goBack";
+        clearHighScore.setAttribute("class","btnOpt");
+        clearHighScore.innerHTML = "Clear high score";
+        options.append(goBack);
+        options.append(clearHighScore);
+        question.append(options);
+
+        
+    }
+    
     
     
 }

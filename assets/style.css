@@ -52,6 +52,17 @@ h2{
     color: white;
     
 }
+.btnSub{
+    border:none;
+    padding: 5px 20px;
+    background-color: rgb(31, 0, 89);
+    color: white;
+    margin: auto 7px;
+}
+.btnSub:hover{
+    transition-duration: 0.4s;
+    background-color: rgb(185, 12, 242);
+}
 .btn:hover{
     transition-duration: 0.4s;
     background-color: rgb(185, 12, 242);
@@ -68,6 +79,20 @@ h2{
     transition-duration: 0.4s;
     background-color: rgb(185, 12, 242);
 }
+.btnOpt{
+    border:none;
+    padding: 10px 15px;
+    background-color: rgb(31, 0, 89);
+    color: white;
+    margin-right: 15px;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+.btnOpt:hover{
+    transition-duration: 0.4s;
+    background-color: rgb(185, 12, 242);
+}
+
 .questionsDiv{
     display:flex;
     flex-direction: column;
@@ -75,6 +100,12 @@ h2{
     
     
 
+}
+.input{
+    padding: 6px 50px;
+    margin: auto 5px;
+    border: solid rgb(72, 176, 224) 2px;
+    font-size: 15px;
 }
 .wrong{
     font-style: italic;
@@ -94,4 +125,15 @@ h2{
 span{
     color: white;
     text-decoration: underline black;
+}
+.inputDiv{
+    display: flex;
+}
+.nameScore{
+    background-color: rgb(194, 167, 204);
+    font-size: 15px;
+    padding: 10px 10px;
+    border-radius: 3px;
+    margin-right:10px;
+    margin-bottom: 0px;
 }
