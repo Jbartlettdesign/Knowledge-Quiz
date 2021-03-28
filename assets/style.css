@@ -78,7 +78,17 @@ h2{
     color:rgba(0, 0, 0, 0.192);
     font-size: 30px;
     margin-left: 40px;
+    margin-top: 0;
+    
+}
+.wrongD{
+    border-top: solid rgba(0, 0, 0, 0.192);
+    margin-left: 20px;
 }
 #timer{
     margin-right: 20px;
+}
+span{
+    color: white;
+    text-decoration: underline black;
 }
