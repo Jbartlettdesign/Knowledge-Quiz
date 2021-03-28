@@ -1,5 +1,5 @@
 
-playerList = [];
+var playerList = [];
 var updateValue;
 var score = 0;
 var body = document.querySelector("body");
@@ -38,6 +38,8 @@ stopTime = false;
 wrong = false;
 function clear(){
     console.log("clear");
+    playerList.length = 0;
+    console.log(playerList);
 }
 
 function startOver(){
@@ -369,7 +371,7 @@ function questioner(){
             console.log(updateValue.length);
             playerList.push(updateValue + " " + "-" + " " + score);
             console.log(playerList);
-            localStorage.setItem("scoreVal", playerList);
+            
             questioner();}
         });
         
@@ -377,24 +379,31 @@ function questioner(){
         
     }
     else if(order ===7){
-        question.innerHTML = "High scores";
-        var yourName = document.createElement("h4");
-        yourName.setAttribute("class", "nameScore");
-        yourName.innerHTML = localStorage.getItem("scoreVal");
-        /*yourName.innerHTML = (updateValue + " " + "-" + " " + score);*/
-        question.append(yourName);
-        var goBack = document.createElement("button");
-        var clearHighScore = document.createElement("button");
-        var options = document.createElement("div");
-        goBack.addEventListener("click",startOver);
-        clearHighScore.addEventListener("click",clear);
-        goBack.setAttribute("class","btnOpt");
-        goBack.innerHTML = "goBack";
-        clearHighScore.setAttribute("class","btnOpt");
-        clearHighScore.innerHTML = "Clear high score";
-        options.append(goBack);
-        options.append(clearHighScore);
-        question.append(options);
+            
+            var temp;
+            question.innerHTML = "High scores";
+            
+        for(var i = 0; i < playerList.length; i ++){
+            localStorage.setItem("scoreVal", playerList[i])
+            var yourName = document.createElement("h4");
+            yourName.setAttribute("class", "nameScore");
+            temp = localStorage.getItem("scoreVal");
+            yourName.innerHTML = temp;
+            /*yourName.innerHTML = (updateValue + " " + "-" + " " + score);*/
+            question.append(yourName);
+            }
+            var goBack = document.createElement("button");
+            var clearHighScore = document.createElement("button");
+            var options = document.createElement("div");
+            goBack.addEventListener("click",startOver);
+            clearHighScore.addEventListener("click",clear);
+            goBack.setAttribute("class","btnOpt");
+            goBack.innerHTML = "Go back";
+            clearHighScore.setAttribute("class","btnOpt");
+            clearHighScore.innerHTML = "Clear high score";
+            options.append(goBack);
+            options.append(clearHighScore);
+            question.append(options);
 
         
     }
