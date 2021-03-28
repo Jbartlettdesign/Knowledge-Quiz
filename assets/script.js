@@ -28,16 +28,22 @@ var questionFive = document.createElement("button");
 var list = [];
 /*order of questions*/
 var order = 0;
-var time = 5;
+var time = 180;
 wrong = false;
+function timer(){
+    timeKeeper.innerHTML = "Time:" + " " + time --;
+    if(time<0){
+       clearInterval(myVar);
+   }
+   else{/*console.log(time);*/}
+   }
+
 function beginTimer(){
-    setInterval (function(){timeKeeper.innerHTML = "Time:" + " " + time --;},1000);
-    console.log(time);
-   if(time <= 0){
-       clearInterval(intervalId);
-   }
-   }
+    myVar = setInterval (function(){timer()},1000);
     
+    
+}
+
 function wrongPick(){
     if(wrong != true){
         wrong = true;
