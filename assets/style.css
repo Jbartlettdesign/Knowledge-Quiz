@@ -41,6 +41,9 @@ h2{
     margin-bottom: 0;
     line-height: 1.2;
 }
+.centerMainAligner p{
+    font-size: 15px;
+}
 
 .btn{
     border:none;
@@ -81,7 +84,7 @@ h2{
     margin-top: 0;
     
 }
-.wrongD{
+#wrongD{
     border-top: solid rgba(0, 0, 0, 0.192);
     margin-left: 20px;
 }

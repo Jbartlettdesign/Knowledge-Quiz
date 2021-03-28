@@ -15,7 +15,11 @@ var begin = document.querySelector("#begin-quiz");
 var highS = document.querySelector("#highScore");
 
 var timeKeeper = document.querySelector("#timer");
+var final = document.createElement("div");
 
+var questionholder = document.createElement("div");
+var wrongDiv = document.createElement("div");
+var wrongIndicator = document.createElement("h3");
 var questionOne = document.createElement("button");
 var questionTwo = document.createElement("button");
 var questionThree = document.createElement("button");
@@ -38,10 +42,9 @@ function wrongPick(){
     if(wrong != true){
         wrong = true;
     console.log("wrongPick");
-    var wrongIndicator = document.createElement("h3");
-    var wrongDiv = document.createElement("div");
+    
     wrongIndicator.setAttribute("class", "wrong");
-    wrongDiv.setAttribute("class", "wrongD");
+    wrongDiv.setAttribute("id", "wrongD");
 
     centerContainer.append(wrongDiv);
     wrongDiv.appendChild(wrongIndicator);
@@ -50,15 +53,18 @@ function wrongPick(){
 }
 function rightPick(){
     console.log("right pick");
-    var gotItRight = document.querySelector("wrongD");
-
+    if(wrong = true){
+    var gotItRight = document.querySelector("#wrongD");
+    wrongDiv.remove("h3");
+    wrong = false;
+    }
     questionOne.removeAttribute("id");
     questionTwo.removeAttribute("id");
     questionThree.removeAttribute("id");
     questionFour.removeAttribute("id");
     questionFive.removeAttribute("id");
-    questioner();
     
+    questioner();
 }
 
 function questioner(){
@@ -74,29 +80,29 @@ function questioner(){
         centerContainer.setAttribute("class", "centerMainAligner");
         /*create elements*/
         /*delete questionholder div for next question*/
-        var questionholder = document.createElement("div");
+        
         var listQuestions = document.createElement("ol");
         listQuestions.setAttribute("class", "questionsDiv")
     
-        questionOne.innerHTML="1.a";
+        questionOne.innerHTML="1. alerts";
         questionOne.setAttribute("class", "qBtn");
         list.push(questionOne);
         
-        questionTwo.innerHTML="2. b";
+        questionTwo.innerHTML="2. strings";
         questionTwo.setAttribute("class", "qBtn");
         list.push(questionTwo);
 
-        questionThree.innerHTML="3. c";
+        questionThree.innerHTML="3. booleans";
         questionThree.setAttribute("class", "qBtn");
         list.push(questionThree);
 
-        questionFour.innerHTML="4. d";
+        questionFour.innerHTML="4. numbers";
         questionFour.setAttribute("class", "qBtn");
         list.push(questionFour);
 
-        questionFive.innerHTML="5. e";
+        /*questionFive.innerHTML="5. e";
         questionFive.setAttribute("class", "qBtn");
-        list.push(questionFive);
+        list.push(questionFive);*/
 
         console.log(list);
         /*append elements*/ 
@@ -116,7 +122,7 @@ function questioner(){
     questionTwo.setAttribute("id", "wrongPickA");
     questionThree.setAttribute("id", "wrongPickB");
     questionFour.setAttribute("id", "wrongPickC");
-    questionFive.setAttribute("id", "wrongPickD");
+    /*questionFive.setAttribute("id", "wrongPickD");*/
             
    
     var wrongAnswereA = document.querySelector("#wrongPickA");
@@ -128,143 +134,176 @@ function questioner(){
     var wrongAnswereC = document.querySelector("#wrongPickC");
     wrongAnswereC.addEventListener("click", wrongPick);
     
-    var wrongAnswereD = document.querySelector("#wrongPickD");
-    wrongAnswereD.addEventListener("click", wrongPick);
+    /*var wrongAnswereD = document.querySelector("#wrongPickD");
+    wrongAnswereD.addEventListener("click", wrongPick);*/
     
     }
     else if(order === 2){
+        questionOne.removeEventListener("click",rightPick);
+        questionTwo.removeEventListener("click", wrongPick);
+        questionThree.removeEventListener("click", wrongPick);
+        questionFour.removeEventListener("click", wrongPick);
+        /**************/
         question.innerHTML = "The condition in an if / else statement is enclosed with<span>blank</span>.";
-        questionOne.innerHTML="1.aaaaa";
+        questionOne.innerHTML="1. quotes";
         questionOne.setAttribute("id", "wrongPickA");
         var wrongAnswereA = document.querySelector("#wrongPickA");
         wrongAnswereA.addEventListener("click", wrongPick);
 
-        questionTwo.innerHTML="2.bbbbbbb";
+        questionTwo.innerHTML="2. parenthesis";
         questionTwo.setAttribute("id","correctPick");
         var correctAnswere = document.querySelector("#correctPick");
         correctAnswere.addEventListener("click", rightPick);
 
-        questionThree.innerHTML="3.cccccc";
+        questionThree.innerHTML="3. curly brackets";
         questionThree.setAttribute("id", "wrongPickB");
         var wrongAnswereB = document.querySelector("#wrongPickB");
         wrongAnswereB.addEventListener("click", wrongPick);
 
-        questionFour.innerHTML="4.ddddddd";
+        questionFour.innerHTML="4. sqaure brackets";
         questionFour.setAttribute("id", "wrongPickC");
         var wrongAnswereC = document.querySelector("#wrongPickC");
         wrongAnswereC.addEventListener("click", wrongPick);
 
-        questionFive.innerHTML="5.eeeeeee";
+        /*questionFive.innerHTML="5.eeeeeee";
         questionFive.setAttribute("id", "wrongPickD");
         var wrongAnswereD = document.querySelector("#wrongPickD");
-        wrongAnswereD.addEventListener("click", wrongPick);
+        wrongAnswereD.addEventListener("click", wrongPick);*/
         list.push(questionOne);
         list.push(questionTwo);
         list.push(questionThree);
         list.push(questionFour);
-        list.push(questionFive);
+        /*list.push(questionFive);*/
     }
     else if(order === 3){
+        questionOne.removeEventListener("click",wrongPick);
+        questionTwo.removeEventListener("click", rightPick);
+        questionThree.removeEventListener("click", wrongPick);
+        questionFour.removeEventListener("click", wrongPick);
+        /*****************/
         question.innerHTML = "Arrays in JavaScript can be used to store.";
-        questionOne.innerHTML="1.aaaaa";
+        questionOne.innerHTML="1. numbers and strings";
         questionOne.setAttribute("id", "wrongPickA");
         var wrongAnswereA = document.querySelector("#wrongPickA");
         wrongAnswereA.addEventListener("click", wrongPick);
 
-        questionTwo.innerHTML="2.bbbbbbb";
+        questionTwo.innerHTML="2. other arrays";
         questionTwo.setAttribute("id","wrongPickB");
         var wrongAnswereB = document.querySelector("#wrongPickB");
         wrongAnswereB.addEventListener("click", wrongPick);
 
-        questionThree.innerHTML="3.cccccc";
-        questionThree.setAttribute("id","correctPick");
-        var correctAnswere = document.querySelector("#correctPick");
-        correctAnswere.addEventListener("click", rightPick);
-
-        questionFour.innerHTML="4.ddddddd";
-        questionFour.setAttribute("id", "wrongPickC");
+        questionThree.innerHTML="3. booleans";
+        questionThree.setAttribute("id","wrongPickC");
         var wrongAnswereC = document.querySelector("#wrongPickC");
         wrongAnswereC.addEventListener("click", wrongPick);
 
-        questionFive.innerHTML="5.eeeeeee";
+        questionFour.innerHTML="4. all of the above";
+        questionFour.setAttribute("id", "correctPick");
+        var correctAnswere = document.querySelector("#correctPick");
+        correctAnswere.addEventListener("click", rightPick);
+
+        /*questionFive.innerHTML="5.eeeeeee";
         questionFive.setAttribute("id", "wrongPickD");
         var wrongAnswereD = document.querySelector("#wrongPickD");
-        wrongAnswereD.addEventListener("click", wrongPick);
+        wrongAnswereD.addEventListener("click", wrongPick);*/
         list.push(questionOne);
         list.push(questionTwo);
         list.push(questionThree);
         list.push(questionFour);
-        list.push(questionFive);
+        /*list.push(questionFive);*/
     }
     else if(order === 4){
+        questionOne.removeEventListener("click",wrongPick);
+        questionTwo.removeEventListener("click", wrongPick);
+        questionThree.removeEventListener("click", wrongPick);
+        questionFour.removeEventListener("click", rightPick);
+        /**********************/
         question.innerHTML = "String values must be enclosed within<span>blank</span>when being assigned to variables.";
-        questionOne.innerHTML="1.aaaaa";
+        questionOne.innerHTML="1. commas";
         questionOne.setAttribute("id", "wrongPickA");
         var wrongAnswereA = document.querySelector("#wrongPickA");
         wrongAnswereA.addEventListener("click", wrongPick);
 
-        questionTwo.innerHTML="2.bbbbbbb";
+        questionTwo.innerHTML="2. curly brackets";
         questionTwo.setAttribute("id","wrongPickB");
         var wrongAnswereB = document.querySelector("#wrongPickB"); 
         wrongAnswereB.addEventListener("click", wrongPick);
 
-        questionThree.innerHTML="3.cccccc";
+        questionThree.innerHTML="3. parenthesis";
         questionThree.setAttribute("id", "wrongPickC");
         var wrongAnswereC = document.querySelector("#wrongPickC");
         wrongAnswereC.addEventListener("click", wrongPick);
 
-        questionFour.innerHTML="4.dddddd";
+        questionFour.innerHTML="4. quotes";
         questionFour.setAttribute("id","correctPick");
         var correctAnswere = document.querySelector("#correctPick");
         correctAnswere.addEventListener("click", rightPick);
 
-        questionFive.innerHTML="5.eeeeeee";
+        /*questionFive.innerHTML="5.eeeeeee";
         questionFive.setAttribute("id", "wrongPickD");
         var wrongAnswereD = document.querySelector("#wrongPickD");
-        wrongAnswereD.addEventListener("click", wrongPick);
+        wrongAnswereD.addEventListener("click", wrongPick);*/
         list.push(questionOne);
         list.push(questionTwo);
         list.push(questionThree);
         list.push(questionFour);
-        list.push(questionFive);
+        /*list.push(questionFive);*/
         
     }
     else if(order === 5){
+        questionOne.removeEventListener("click",wrongPick);
+        questionTwo.removeEventListener("click", wrongPick);
+        questionThree.removeEventListener("click", wrongPick);
+        questionFour.removeEventListener("click", rightPick);
+        /****************/
         question.innerHTML = "A very used tool used during development and debugging for printing content to the debugger is:";
-        questionOne.innerHTML="1.aaaaa";
+        questionOne.innerHTML="1. JavaScript";
         questionOne.setAttribute("id", "wrongPickA");
         var wrongAnswereA = document.querySelector("#wrongPickA");
         wrongAnswereA.addEventListener("click", wrongPick);
 
-        questionTwo.innerHTML="2.bbbbbbb";
+        questionTwo.innerHTML="2.terminal/bash";
         questionTwo.setAttribute("id","wrongPickB");
         var wrongAnswereB = document.querySelector("#wrongPickB"); 
         wrongAnswereB.addEventListener("click", wrongPick);
 
-        questionThree.innerHTML="3.cccccc";
+        questionThree.innerHTML="3.for loops";
         questionThree.setAttribute("id", "wrongPickC");
         var wrongAnswereC = document.querySelector("#wrongPickC");
         wrongAnswereC.addEventListener("click", wrongPick);
 
-        questionFour.innerHTML="4.ddddddd";
-        questionFour.setAttribute("id", "wrongPickD");
-        var wrongAnswereD = document.querySelector("#wrongPickD");
-        wrongAnswereD.addEventListener("click", wrongPick);
-
-        questionFive.innerHTML="5.eeeeeee";
-        questionFive.setAttribute("id", "correctPick");
+        questionFour.innerHTML="4.console.log";
+        questionFour.setAttribute("id", "correctPick");
         var correctAnswere = document.querySelector("#correctPick");
         correctAnswere.addEventListener("click", rightPick);
+
+        /*questionFive.innerHTML="5.eeeeeee";
+        questionFive.setAttribute("id", "correctPick");
+        var correctAnswere = document.querySelector("#correctPick");
+        correctAnswere.addEventListener("click", rightPick);*/
         list.push(questionOne);
         list.push(questionTwo);
         list.push(questionThree);
         list.push(questionFour);
-        list.push(questionFive);
+        /*list.push(questionFive);*/
 
     }
     else if(order === 6){
+        questionOne.removeEventListener("click",wrongPick);
+        questionTwo.removeEventListener("click", wrongPick);
+        questionThree.removeEventListener("click", wrongPick);
+        questionFour.removeEventListener("click", rightPick);
+        /****************/
         order = 0;
         console.log("go to highscore");
+        question.innerHTML = "All done!"
+        centerContainer.removeChild(questionholder);
+        var finalP = document.createElement("p");
+        centerContainer.append(final);
+        finalP.innerHTML = "your final score is."
+        question.append(finalP);
+        
+        
     }
     
     
