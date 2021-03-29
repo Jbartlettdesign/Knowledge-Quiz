@@ -1,4 +1,4 @@
-
+clearable = false;
 var playerList = [];
 var updateValue;
 var score = 0;
@@ -17,11 +17,14 @@ var direct = document.querySelector("#directions");
 var begin = document.querySelector("#begin-quiz");
 /*high score*/
 var highS = document.querySelector("#highScore");
-
+var high = document.querySelector("#highScoreButton");
 var timeKeeper = document.querySelector("#timer");
-
+var listOfScore = document.createElement("ul");
+var yourName = document.createElement("h4");
 var final = document.createElement("div");
-
+var goBack = document.createElement("button");
+var clearHighScore = document.createElement("button");
+var options = document.createElement("div");
 var questionholder = document.createElement("div");
 var wrongDiv = document.createElement("div");
 var wrongIndicator = document.createElement("h3");
@@ -30,9 +33,11 @@ var questionTwo = document.createElement("button");
 var questionThree = document.createElement("button");
 var questionFour = document.createElement("button");
 var questionFive = document.createElement("button");
+var listQuestions = document.createElement("ol");
 var list = [];
 /*order of questions*/
 var order = 0;
+var previousOrder = 0;
 var time = 180;
 stopTime = false;
 wrong = false;
@@ -40,11 +45,21 @@ function clear(){
     console.log("clear");
     playerList.length = 0;
     console.log(playerList);
+    if(clearable = true){
+    foundYourName = document.querySelector("nameScore")
+    question.removeChild(yourName);
+    clearable = false;
+}
 }
 
 function startOver(){
     order = 0;
     time = 180;
+    score = 0;
+    stopTime= false;
+    if(high.hasAttribute("class", "whiteOut")){
+    high.removeAttribute("class", "whiteOut");}
+    high.addEventListener("click",viewHighScore)
     /*location.reload();*/
     centerContainer.setAttribute("class", "centerMain");
     question.innerHTML = "Coding Quiz Challenge"
@@ -52,6 +67,10 @@ function startOver(){
     centerContainer.append(begin);
     timer();
     console.log("reloaded");
+    while(listOfScore.firstChild){
+        listOfScore.removeChild(listOfScore.firstChild);
+        console.log("remover of child");
+    }
 }
 function timer(){
     timeKeeper.innerHTML = "Time:" + " " + time --;
@@ -103,6 +122,7 @@ function questioner(){
     order ++;
     console.log(order);
     if(order === 1){
+        high.removeAttribute("class", "whiteOut");
         /*change the initial directions to the first question*/
         question.innerHTML = "Commonly used data types DO Not Include:";
         centerContainer.removeChild(direct);
@@ -113,7 +133,7 @@ function questioner(){
         /*create elements*/
         /*delete questionholder div for next question*/
         
-        var listQuestions = document.createElement("ol");
+        
         listQuestions.setAttribute("class", "questionsDiv")
     
         questionOne.innerHTML="1. alerts";
@@ -379,32 +399,39 @@ function questioner(){
         
     }
     else if(order ===7){
-            
-            var temp;
+            high.setAttribute("class", "whiteOut");
+            high.removeEventListener("click", viewHighScore);
+            /*var temp;*/
             question.innerHTML = "High scores";
+            question.append(listOfScore);
             
         for(var i = 0; i < playerList.length; i ++){
-            localStorage.setItem("scoreVal", playerList[i])
             var yourName = document.createElement("h4");
+            console.log(playerList.length)
+            /*localStorage.setItem("scoreVal", playerList)*/
             yourName.setAttribute("class", "nameScore");
-            temp = localStorage.getItem("scoreVal");
-            yourName.innerHTML = temp;
+            /*temp = localStorage.getItem("scoreVal");*/
+            yourName.innerHTML = playerList[i];
             /*yourName.innerHTML = (updateValue + " " + "-" + " " + score);*/
-            question.append(yourName);
+            
+            listOfScore.append(yourName);
+            clearable = true;
             }
-            var goBack = document.createElement("button");
-            var clearHighScore = document.createElement("button");
-            var options = document.createElement("div");
-            goBack.addEventListener("click",startOver);
-            clearHighScore.addEventListener("click",clear);
             goBack.setAttribute("class","btnOpt");
             goBack.innerHTML = "Go back";
+             
             clearHighScore.setAttribute("class","btnOpt");
             clearHighScore.innerHTML = "Clear high score";
+            
             options.append(goBack);
             options.append(clearHighScore);
             question.append(options);
-
+            
+            /*localStorage.setItem("scoreVal", playerList);temp = null;*/
+            /*localStorage.clear();*/
+            /*listOfScore.remove(yourName);*/
+            console.log(playerList);
+            
         
     }
     
@@ -415,15 +442,31 @@ function questioner(){
 function startQuiz(){
      beginTimer()   
     questioner();
+    
 }
 function viewHighScore(){
-    console.log("score");
+    
+    stopTime = true;
+    timer();
+    console.log("scoooooooooore");
+    /*previousOrder = order;
+    console.log(order);*/
+    order = 6;
+    high.setAttribute("class", "whiteOut");
+    while(listQuestions.firstChild){
+        listQuestions.removeChild(listQuestions.firstChild);
+    }
+    startQuiz();
+    
+    
 }
 
-
-
-
-highS.addEventListener("click", viewHighScore);
+clearHighScore.addEventListener("click",function(){playerList = [];while(listOfScore.firstChild){
+    listOfScore.removeChild(listOfScore.firstChild);
+    console.log("remover of child");
+}});
+goBack.addEventListener("click",startOver);
+high.addEventListener("click", viewHighScore);
 begin.addEventListener("click", startQuiz);
 
 
